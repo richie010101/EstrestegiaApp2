@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
+import LoginScreen from './src/screens/LoginScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Menu from './src/screens/Menu';
+import Juego1 from './src/screens/juego1/Juego1';
+import Juego2 from './src/screens/juego2/Juego2';
+import JuegosMenu from './src/screens/JuegosMenu';
+import HerramientasMenu from './src/screens/HerramientasMenu';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+    
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }}/> 
+            <Stack.Screen name='Menu' component={Menu} options={{ headerShown: false }} />
+            <Stack.Screen name='Juego1' component={Juego1} options={{ headerShown: false }} />
+            <Stack.Screen name='Juego2' component={Juego2} options={{ headerShown: false }} />
+            <Stack.Screen name='MenuJ' component={JuegosMenu} options={{ headerShown: false }} />
+            <Stack.Screen name='Herramientas' component={HerramientasMenu} options={{ headerShown: false }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+     
+    )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
