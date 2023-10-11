@@ -8,8 +8,16 @@ import Footer from '../components/Footer';
 import {LinearGradient} from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
+import { LogBox } from 'react-native';
+
+
+
+//YellowBox.ignoreWarnings(["@firebase/auth: Auth"])
+
 
 function Login() {
+
+  LogBox.ignoreLogs(["@firebase/auth: Auth"])
   
   const navigation=useNavigation();
   
