@@ -17,7 +17,7 @@ export default function JuegosMenu() {
 
     return (
         <SafeAreaView style={[styles.screen,GlobalStyles.androidSafeArea]}>
-        <LinearGradient colors={['#00FFEB','#285EE8']} style={styles.screen}>
+        <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
            
             <View style={styles.logo}>
                 <Image style={styles.logo2} 
@@ -42,8 +42,7 @@ export default function JuegosMenu() {
 }
 
 const styles = StyleSheet.create({
-    logo:{
-          
+    logo:{ 
         marginTop:'10%',
         alignItems:'center',
     },
@@ -51,12 +50,6 @@ const styles = StyleSheet.create({
       marginTop:-15,
       height:60,
       width:200,
-    },
-    screen:{
-        alignContent:'center',
-        alignItems:'center',
-        height:"100%",
-        width:"100%",
     },
     letra:{
         color:"#000000",
