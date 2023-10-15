@@ -16,6 +16,10 @@ export default function Juego1() {
     const[palabra2Color,setPalabra2Color]=useState("#00FF66");
 
 
+    const[empezo,setEmpezo]=useState(false);
+    const[termino,setTermino]=useState(false);
+
+
     const  sumar=()=>{
       setBuenas(buenas+1)
       console.log(buenas);
