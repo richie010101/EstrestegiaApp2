@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Menu from './src/screens/Menu';
 import Juego1 from './src/screens/juego1/Juego1';
 import Juego2 from './src/screens/juego2/Juego2';
+import Juego3 from './src/screens/Juego3/Juego3';
 import JuegosMenu from './src/screens/JuegosMenu';
 import HerramientasMenu from './src/screens/HerramientasMenu';
 
@@ -20,6 +21,7 @@ export default function App() {
             <Stack.Screen name='Menu' component={Menu} options={{ headerShown: false }} />
             <Stack.Screen name='Juego1' component={Juego1} options={{ headerShown: false }} />
             <Stack.Screen name='Juego2' component={Juego2} options={{ headerShown: false }} />
+            <Stack.Screen name='Juego3' component={Juego3} options={{ headerShown: false }} />
             <Stack.Screen name='MenuJ' component={JuegosMenu} options={{ headerShown: false }} />
             <Stack.Screen name='Herramientas' component={HerramientasMenu} options={{ headerShown: false }} />
           </Stack.Navigator>
