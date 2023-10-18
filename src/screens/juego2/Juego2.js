@@ -7,20 +7,62 @@ import AppLoading from 'expo-app-loading';
 import { LogBox } from 'react-native';
 import EspacioJ from './EspacioJ';
 import Casilla from './Casilla';
+import  {crear} from './tableros'
 
+
+var tableros
+tableros=crear()
 var sudoku=new Array(9);
+var bloqueados= new Array(9);
+var sudokuF=new Array(9);
 for(var i = 0;i<sudoku.length;i++){
   sudoku[i]= new Array(3);
+  sudokuF[i]= new Array(3);
+  
+  bloqueados[i]= new Array(3);
 }
 
 for(var i = 0;i<sudoku.length;i++){
   for(var j = 0;j<3;j++){
     sudoku[i][j]= new Array(3);
+    sudokuF[i][j]= new Array(3);
+    bloqueados[i][j]= new Array(3);
   }
 }
 
+var x = Math.floor(Math.random()*15);
+
+for(var i = 0;i<sudoku.length;i++){
+  for(var j = 0;j<3;j++){
+    for(var k = 0;k<3;k++){
+
+      
+      sudokuF[i][j][k]= tableros[x][i][j][k]
+      bloqueados[i][j][k]=false;
+    }
+  }
+}
+
+for (var i=0;i<31;i++){
+  var uno = Math.floor(Math.random()*9);
+  var dos = Math.floor(Math.random()*3);
+  var tres = Math.floor(Math.random()*3);
+  console.log(uno +","  + dos+"," + tres);
+  if(bloqueados[uno][dos][tres]=== false)
+  {
+    bloqueados[uno][dos][tres]= true;
+    sudoku[uno][dos][tres]=sudokuF[uno][dos][tres]
+  }
+  else{
+    i--;
+  }
+}
+
+
+
 export default function Juego1()  {
   const[valor,SetValor]=useState();
+  const[terminar,setTerminar]=useState("Jugando..");
   
  
 
@@ -40,15 +82,30 @@ export default function Juego1()  {
 
   LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
 
-  const ver=(posicion,posicionY,posicionX,valor)=>{
-    console.log("( Casilla: " + posicion +", X: " +posicionX+ ", Y:" + posicionY +")");
-    sudoku[posicion][posicionX][posicionY]=valor
-    
+  const ver=(posicion,posicionX,posicionY,valor)=>{
+      console.log("( Casilla: " + posicion +", X: " +posicionX+ ", Y:" + posicionY +")");
+      sudoku[posicion][posicionX][posicionY]=valor
+      
 
-    console.log("---------------------");
+      console.log("---------------------");
+      console.log(sudoku)
+      console.log(sudokuF)
 
+      var iguales = true;
+      for(var i = 0;i<sudoku.length;i++){
+        for(var j = 0;j<3;j++){
+          for(var k = 0;k<3;k++){
+            if (sudokuF[i][j][k] !== sudoku[i][j][k]){
+              iguales=false;
+            }
+          }
+        }
+      }
 
-    console.log(sudoku)
+      if(iguales){
+        console.log("Termino");
+        setTerminar("Termino");
+      }
   }
 
 
@@ -63,8 +120,8 @@ export default function Juego1()  {
               </View>
               <Text style={{marginTop:30,  fontSize: 40,fontFamily:"prueba2"}}> Sudoku </Text>
 
-            
-              <EspacioJ   valor={valor} ver={ver} />
+              <Text> {terminar} </Text>
+            <EspacioJ  styles={styles.juego} valor={valor} ver={ver} bloqueados={bloqueados} sudoku={sudoku}></EspacioJ>
 
             
 
@@ -121,12 +178,11 @@ export default function Juego1()  {
 
 const styles = StyleSheet.create({
   juego:{
-    width:"98%",
-    height:"49.5%",
+    width:"95%",
+    height:"60%",
     backgroundColor:"#80D6E4",
-    marginTop:30,
+    marginTop:0,
     alignContent:'center',
-    
   },
   botones:{
     marginLeft:"2%",
