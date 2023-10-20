@@ -43,7 +43,7 @@ for(var i = 0;i<sudoku.length;i++){
   }
 }
 
-for (var i=0;i<31;i++){
+for (var i=0;i<41;i++){
   var uno = Math.floor(Math.random()*9);
   var dos = Math.floor(Math.random()*3);
   var tres = Math.floor(Math.random()*3);
@@ -66,7 +66,7 @@ export default function Juego1()  {
   
  
 
-
+  LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
 
   let [fontsLoaded]= useFonts({
     "prueba2" :require("../../fonts/NextBro.ttf"),
@@ -80,7 +80,7 @@ export default function Juego1()  {
     SetValor(nuevo)
   }
 
-  LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
+  
 
   const ver=(posicion,posicionX,posicionY,valor)=>{
       console.log("( Casilla: " + posicion +", X: " +posicionX+ ", Y:" + posicionY +")");
