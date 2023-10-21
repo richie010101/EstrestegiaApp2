@@ -4,11 +4,23 @@ import GlobalStyles from '../styles/GlobalStyles';
 import {LinearGradient} from 'expo-linear-gradient';
 import BotonJuego, {BotonJuego3,BotonJuego2,BotonJuego4} from '../components/BotonJuego';
 import { useNavigation } from '@react-navigation/native';
-
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { LogBox } from 'react-native';
 
 
 export default function JuegosMenu() {
-  
+  LogBox.ignoreLogs(["expo-app-loading is deprecated","React has detected a change in the order of Hooks"]);
+        
+  let [fontsLoaded] = useFonts({
+    "NextBro": require("../fonts/NextBro.ttf"),
+    "NextBro2": require("../fonts/Roboto-Black.ttf"),
+    "Letra": require("../fonts/Letra.ttf"),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   const navigation=useNavigation(); 
   const  viajar=(screen) =>{
     console.log("viajando " + screen );
@@ -19,12 +31,13 @@ export default function JuegosMenu() {
         <SafeAreaView style={[styles.screen,GlobalStyles.androidSafeArea]}>
         <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
            
-            <View style={styles.logo}>
-                <Image style={styles.logo2} 
+            <View style={GlobalStyles.logo}>
+                <Image style={GlobalStyles.logo2} 
                 source={require('../images/logo2.png')} />
-                <Text style={[styles.letra, {marginTop:25}]}>Celebra tus logros,Incluso los pequeños..</Text>
-                <Text style={styles.letra}>es importante.</Text>
+
             </View>
+            <Text style={[styles.letra]}>Celebra tus logros,Incluso los pequeños..</Text>
+            <Text style={styles.letra}>es importante.</Text>
             <View style={[styles.games,{marginTop:30}]}>
               <BotonJuego nombre={"Memoria"} viajar={viajar} nombre2={'Juego1'} direccion={"../images/juego1/Inicio.png"} />
               <BotonJuego2 nombre={"Aprendiendo"} viajar={viajar} nombre2={'Juego2'} direccion={"../images/juego1/Inicio.png"} />
@@ -42,19 +55,10 @@ export default function JuegosMenu() {
 }
 
 const styles = StyleSheet.create({
-    logo:{ 
-        marginTop:'10%',
-        alignItems:'center',
-    },
-    logo2:{
-      marginTop:-15,
-      height:60,
-      width:200,
-    },
     letra:{
         color:"#000000",
-        
-        fontSize:18,
+        fontFamily: "NextBro2",
+        fontSize:15,
     },
     juego:{
       margin:15,

@@ -13,12 +13,20 @@ export default StyleSheet.create({
             width:"100%",
     },
     logo2:{
-        marginTop:-15,
-        height:60,
-        width:200,
+        height:"100%",
+        width:"100%",
     },
     logo:{ 
-        marginTop:'10%',
+        marginTop:'4%',
+        marginBottom:"5%",
         alignItems:'center',
+        width:"48.5%",
+        height:"7%",
+    },
+    logo3:{
+        alignItems:'center',
+        marginTop:"2%",
+        height:"5%",
+        width:"30%",
     },
 })
