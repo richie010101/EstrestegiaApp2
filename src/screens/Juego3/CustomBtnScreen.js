@@ -1,12 +1,33 @@
-import { Text, StyleSheet, View, ImageBackground } from 'react-native'
+import { Text, StyleSheet, View, ImageBackground, TouchableOpacity, Alert } from 'react-native'
 import React, { Component, useState } from 'react'
 import CustomBtn from './CustomBtn'
+import gameBg from '../../images/juego3/puzzeback.jpeg'
+import startbtn from '../../images/juego3/start.png'
+
 
 const CustomBtnScreen = () => {
 
-    const [initPositions, SetInitPositions] = useState ([8,2,3,7,5,null,4,1,6]);
-    const [positions, SetPositions] = useState ([8,2,3,7,5,null,4,1,6]);
+    const [positions, SetPositions] = useState ([1,2,3,4,5,6,7,8,null]);
+    const [intPositions, setInitPositions] = useState ([1,2,3,4,5,6,7,8,null]);
     const [toggle, setToggle] = useState(false);
+    const [start, setStart] = useState(false);
+
+    const msg = () => {
+
+        if(start){
+            var counter = 0;
+
+            for(let i=0; i<positions.length; i++){
+                if(positions[i] !== intPositions[i]){
+                    counter++;
+                }
+            }
+
+            if(counter === 0){
+                Alert.alert("Felicidades, completaste el puzzle");
+            }
+        }
+    }
 
 
     const switchPosition = (position, index) => {
@@ -158,10 +179,15 @@ const CustomBtnScreen = () => {
                 auxPositions[index2] = position;
                 SetPositions(auxPositions);
                 setToggle(!toggle);
+                
             } 
           
 
         })
+
+        if(position === 6 || position === 8){
+            msg();
+        }
     }
 
     console.log(position)
@@ -173,13 +199,40 @@ const CustomBtnScreen = () => {
 
       return (
 
-        <ImageBackground style={styles.puzzleContainer}>
+        <View>
+
+        <ImageBackground 
+        style={styles.puzzleContainer}
+        source={gameBg}
+        resizeMode='stretch'>
+            <View style={styles.puzzleSeeds}>
             {positions.map((position, index) => (
                 <CustomBtn key = {index} label = {position} myFun = {() => switchPosition(position,index)} />
             )
             )}
-
+        </View>
         </ImageBackground>
+
+       <TouchableOpacity style={styles.start}
+       
+       onPress={()=>{
+        SetPositions(() => [8,2,3,7,5,null,4,1,6]);
+        setToggle(!toggle);
+        setStart(true);
+    
+    }}
+        >
+            <ImageBackground 
+           
+            style={styles.start}
+            source={startbtn}>
+              
+            </ImageBackground>
+
+       </TouchableOpacity>
+
+
+        </View>
       ) 
 }
 
@@ -191,11 +244,25 @@ const styles = StyleSheet.create(
         flexDirection: "row",
         flexWrap: "wrap",
         height: 380,
-        width: 380
-
-
-
-
+        width: 380,
+        alignItems: "center",
+        paddingLeft: 33
+    },
+    puzzleSeeds:{
+        marginTop: 60,
+        flex: 1,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        height: 380,
+        width: 380,
+        alignItems: "center"
+    },
+    start:{
+        height: 80,
+        width: 100,
+        backgroundColor: "#8e2525",
+        marginTop: 600
+        
     }
 }
 );
