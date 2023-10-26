@@ -1,8 +1,10 @@
-import { Text, StyleSheet, View, ImageBackground, TouchableOpacity, Alert } from 'react-native'
+import { Text, StyleSheet, View, ImageBackground, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import React, { Component, useState } from 'react'
 import CustomBtn from './CustomBtn'
+import GlobalStyles from '../../styles/GlobalStyles'
 import gameBg from '../../images/juego3/puzzeback.jpeg'
-import startbtn from '../../images/juego3/start.png'
+import startbtn from '../../images/juego3/margen.png'
+
 
 
 const CustomBtnScreen = () => {
@@ -199,6 +201,8 @@ const CustomBtnScreen = () => {
 
       return (
 
+        <SafeAreaView style={[GlobalStyles.androidSafeArea,{alignItems:'center',alignContent:'center'}]}>
+             
         <View>
 
         <ImageBackground 
@@ -233,6 +237,8 @@ const CustomBtnScreen = () => {
 
 
         </View>
+        
+        </SafeAreaView>
       ) 
 }
 
