@@ -208,8 +208,7 @@ const CustomBtnScreen = () => {
             <Image style={GlobalStyles.logo2} 
                 source={require("../../images/logo2.png")} />
             </View>
-            <Text style={{marginTop:20,  fontSize: 40,fontFamily:"prueba2"}}> Rompecabezas </Text>
-
+            <Text style={{marginTop:30,  fontSize: 40,fontFamily:"prueba2"}}> Rompecabezas </Text>
                
 
              
