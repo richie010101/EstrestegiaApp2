@@ -5,6 +5,9 @@ import GlobalStyles from '../../styles/GlobalStyles'
 import gameBg from '../../images/juego3/descargam.png'
 import startbtn from '../../images/juego3/margen.png'
 import {LinearGradient} from 'expo-linear-gradient'
+import { LogBox } from 'react-native';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 
 
@@ -197,6 +200,16 @@ const CustomBtnScreen = () => {
     console.log(index)
     console.log('///////')
 
+    }
+
+    LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
+
+    let [fontsLoaded]= useFonts({
+      "prueba2" :require("../../fonts/NextBro.ttf"),
+    });
+  
+    if (!fontsLoaded) {
+      return <AppLoading/>;
     }
  
 
