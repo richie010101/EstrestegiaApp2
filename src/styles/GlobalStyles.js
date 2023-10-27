@@ -6,6 +6,11 @@ export default StyleSheet.create({
        // paddingTop: Platform.OS === "android" ? 35:0,
       //  backgroundColor:"white",
     },
+    androidSafeArea2:{
+          //  flex:1,
+           // paddingTop:  100,
+            //backgroundColor:"white",
+        },
     screen:{
             alignContent:'center',
             alignItems:'center',

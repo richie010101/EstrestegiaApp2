@@ -214,8 +214,8 @@ const CustomBtnScreen = () => {
  
 
       return (
-
-        <SafeAreaView style={[GlobalStyles.androidSafeArea,{alignItems:'center',alignContent:'center'}]}>
+        
+        <SafeAreaView style={[GlobalStyles.androidSafeArea2,{alignItems:'center',alignContent:'center'}]}>
             <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
             <View style={GlobalStyles.logo}>
             <Image style={GlobalStyles.logo2} 

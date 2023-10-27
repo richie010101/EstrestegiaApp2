@@ -9,27 +9,17 @@ import GlobalStyles from '../../styles/GlobalStyles'
 
 export default class Juego3 extends Component {
   render() {
-    return (
-      
-        <View style={styles.container}>
-          
-            
+    return (          
         <CustomBtnScreen />
       
-      
-      
-        <StatusBar style="auto"/>
-        
-        </View>
-    
     )
   }
 }
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    //flex: 1,
+    //alignItems: 'center',
+    //justifyContent: 'center',
   }
 })
