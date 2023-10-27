@@ -43,7 +43,7 @@ export default function JuegosMenu() {
               <BotonJuego2 nombre={"Aprendiendo"} viajar={viajar} nombre2={'Juego2'} direccion={"../images/juego1/Inicio.png"} />
             </View>
             <View style={styles.games}>
-              <BotonJuego3 nombre={"Cambiando"} viajar={viajar} nombre2={'Juego3'} direccion={"../images/juego1/Inicio.png"} />
+              <BotonJuego3 nombre={"Rompecabezas"} viajar={viajar} nombre2={'Juego3'} direccion={"../images/juego1/Inicio.png"} />
               <BotonJuego4 nombre={"Buscando"} viajar={viajar} nombre2={'Juego2'} direccion={"../images/juego1/Inicio.png"}/>
             </View>
             
