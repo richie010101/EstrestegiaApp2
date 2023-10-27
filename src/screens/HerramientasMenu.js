@@ -8,19 +8,22 @@ import AppLoading from 'expo-app-loading';
 import { LogBox } from 'react-native';
 import BotonVideo,{BotonVideo2,BotonVideo3,BotonVideo4} from '../components/BotonVideo';
 import { useNavigation } from '@react-navigation/native';
-import { crear } from './Herramientas/sinopsis';
+import { crearSinopsis,crearCanal,crearTitulos } from './Herramientas/sinopsis';
 
 
 const screenDimensions = Dimensions.get('screen').height;
 
 export default function HerramientasMenu (){
 
-  const sinopsis=crear()
+  const sinopsis=crearSinopsis();
+  const titulos=crearTitulos();
+  const canales=crearCanal();
+
 
   const navigation=useNavigation(); 
-  const  viajar=(screen,video,sinop) =>{
-    console.log("viajando " + screen );
-    navigation.navigate(screen,{idV:video,sinopsis:sinop});
+  const  viajar=(video,sinop,nombre,canal) =>{
+    //console.log("viajando " + screen );
+    navigation.navigate('Reproductor',{idV:video,sinopsis:sinop,titulo:nombre,canal:canal});
   }
   
   console.log(screenDimensions);
@@ -56,7 +59,7 @@ export default function HerramientasMenu (){
         <View style={{height: '100%'}}>
           <Text style={styles.titulos}>Aprendiendo a respirar</Text>
           <TouchableOpacity 
-            onPress={()=>viajar('Reproductor','T96Bl1Md_Oc',sinopsis[0])}
+            onPress={()=>viajar('T96Bl1Md_Oc',sinopsis[0],titulos[0],canales[0])}
             style={styles.video}>     
             <Image style={styles.imagen} source={require('./Herramientas/images/respiracion.webp')}/>     
             <View style={styles.videoT}>
@@ -65,7 +68,7 @@ export default function HerramientasMenu (){
             </View>
           </TouchableOpacity>
           <TouchableOpacity 
-            onPress={()=>viajar('Reproductor','x0Ig8XNc8d8',sinopsis[0])}
+            onPress={()=>viajar('x0Ig8XNc8d8',sinopsis[1],titulos[1],canales[1])}
             style={styles.video}>
             <Image style={styles.imagen} source={require('./Herramientas/images/Meditacion.webp')}/>  
             <View style={styles.videoT}>
@@ -75,7 +78,7 @@ export default function HerramientasMenu (){
         </TouchableOpacity>
           <Text style={styles.titulos}>Burn-Out</Text>
           <TouchableOpacity 
-            onPress={()=>viajar('Reproductor','nrkXgRWYiiI',sinopsis[1])}
+            onPress={()=>viajar('nrkXgRWYiiI',sinopsis[2],titulos[2],canales[2])}
             style={styles.video}>
             <Image style={styles.imagen} source={require('./Herramientas/images/BurnOut.webp')}/> 
               <View style={styles.videoT}>
@@ -84,7 +87,7 @@ export default function HerramientasMenu (){
             </View>
         </TouchableOpacity>
         <TouchableOpacity 
-            onPress={()=>viajar('Reproductor','IYq35hem4ZU',sinopsis[1])}
+            onPress={()=>viajar('IYq35hem4ZU',sinopsis[3],titulos[3],canales[3])}
             style={styles.video}>
               <Image style={styles.imagen} source={require('./Herramientas/images/Video4.webp')}/> 
               <View style={styles.videoT}>
