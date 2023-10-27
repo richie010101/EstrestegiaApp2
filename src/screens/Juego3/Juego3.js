@@ -10,21 +10,18 @@ import GlobalStyles from '../../styles/GlobalStyles'
 export default class Juego3 extends Component {
   render() {
     return (
-      <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
-         <View style={GlobalStyles.logo}>
-            <Image style={GlobalStyles.logo2} 
-                source={require("../../images/logo2.png")} />
-            </View>
-      <View>
-
-
+      
+        <View style={styles.container}>
+          
+            
         <CustomBtnScreen />
       
       
-
+      
         <StatusBar style="auto"/>
-      </View>
-      </LinearGradient>
+        
+        </View>
+    
     )
   }
 }
@@ -32,8 +29,7 @@ export default class Juego3 extends Component {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 })

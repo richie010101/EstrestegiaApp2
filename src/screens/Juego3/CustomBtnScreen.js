@@ -1,9 +1,10 @@
-import { Text, StyleSheet, View, ImageBackground, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
+import { Text, Image, StyleSheet, View, ImageBackground, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import React, { Component, useState } from 'react'
 import CustomBtn from './CustomBtn'
 import GlobalStyles from '../../styles/GlobalStyles'
-import gameBg from '../../images/juego3/puzzeback.jpeg'
+import gameBg from '../../images/juego3/descargam.png'
 import startbtn from '../../images/juego3/margen.png'
+import {LinearGradient} from 'expo-linear-gradient'
 
 
 
@@ -202,6 +203,15 @@ const CustomBtnScreen = () => {
       return (
 
         <SafeAreaView style={[GlobalStyles.androidSafeArea,{alignItems:'center',alignContent:'center'}]}>
+            <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
+            <View style={GlobalStyles.logo}>
+            <Image style={GlobalStyles.logo2} 
+                source={require("../../images/logo2.png")} />
+            </View>
+            <Text style={{marginTop:20,  fontSize: 40,fontFamily:"prueba2"}}> Rompecabezas </Text>
+
+               
+
              
         <View>
 
@@ -217,6 +227,7 @@ const CustomBtnScreen = () => {
         </View>
         </ImageBackground>
 
+     
        <TouchableOpacity style={styles.start}
        
        onPress={()=>{
@@ -226,18 +237,13 @@ const CustomBtnScreen = () => {
     
     }}
         >
-            <ImageBackground 
            
-            style={styles.start}
-            source={startbtn}>
-              
-            </ImageBackground>
 
        </TouchableOpacity>
 
 
         </View>
-        
+        </LinearGradient>
         </SafeAreaView>
       ) 
 }
@@ -245,30 +251,33 @@ const CustomBtnScreen = () => {
 const styles = StyleSheet.create(
 {
     puzzleContainer:{
-        marginTop: 100,
+        marginTop: 90,
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
         height: 380,
         width: 380,
         alignItems: "center",
-        paddingLeft: 33
+        paddingLeft: 40
     },
     puzzleSeeds:{
-        marginTop: 60,
+        marginTop: 70,
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
         height: 380,
         width: 380,
-        alignItems: "center"
+        alignItems: "center",
     },
     start:{
-        height: 80,
-        width: 100,
         backgroundColor: "#8e2525",
-        marginTop: 600
-        
+        flex: 0.5,
+        height: 100,
+        width: 150,
+        position:'absolute',
+        left: 120, 
+        bottom:170,
+
     }
 }
 );
