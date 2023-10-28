@@ -7,54 +7,23 @@ import { Dimensions} from 'react-native'
 
 const screenDimensions = Dimensions.get('screen').height;
 
-export default function Reproductor({route}) {
+export default function Apoyo() {
 
 
-    const [mostrar,setMostrar]=useState(1)
-    console.log(route);
-    const{idV}=route.params;
-    const{sinopsis}=route.params;
-    const{titulo}=route.params;
-    const{canal}=route.params;
-    console.log(sinopsis);
 
 
-    const muestra = () => {
-      if(mostrar===1){
-        setMostrar(100);
-      }
-      else{
-        setMostrar(1);
-      }
-      
-    };
+
+
   return (
     <SafeAreaView style={GlobalStyles.androidSafeArea}>
         <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
 
-            <View style={styles.info}>
-
-            <View style={{marginTop:0}}>
-            <YoutubePlayer
-            height={screenDimensions*0.26}
-            width={"100%"}
-            videoId={idV}
-            />
-            </View>
-            <View style={styles.caja}>
-              <Text style={styles.videoText}> {titulo}</Text>
-              <Text style={styles.videoText2}> {canal}</Text>
-              <Text numberOfLines={mostrar} style={styles.videoText3} onPress={()=>muestra()}> {sinopsis}</Text>
-            </View>
-              <Text style={styles.videoText4}> cada video obtenido de Youtube en la plataforma 'Estrestegia' 
-                                                se origina en fuentes confiables con el propósito de brindar a los 
-                                                usuarios información que les permita llevar una vida más saludable e 
-                                                informada.</Text>
-              </View>
-            <View style={[GlobalStyles.logo3,{bottom:"-94%"}]}>
+        <View style={GlobalStyles.logo}>
                   <Image style={GlobalStyles.logo2} 
                   source={require('../images/logo2.png')} />
-            </View>
+        </View>
+
+
         </LinearGradient>
     </SafeAreaView>
   )

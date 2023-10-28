@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import JuegosMenu from './JuegosMenu';
 import HerramientasMenu from './HerramientasMenu';
+import Apoyo from './Apoyo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
@@ -20,12 +21,17 @@ export default class Menu extends Component {
                 <Tab.Screen name="Juegos" component={JuegosMenu} 
                       options={{ 
                         headerShown: false, 
-                        tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='controller-classic' color={color} size={size}/>)
+                        tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='shield' color={color} size={size}/>)
                         }}/>
                 <Tab.Screen name="Herramientas" component={HerramientasMenu} 
                       options={{
                          headerShown: false ,
-                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='scale-balance' color={color} size={size}/>)
+                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='lungs' color={color} size={size}/>)
+                      }} />
+                <Tab.Screen name="Apoyo" component={Apoyo} 
+                      options={{
+                         headerShown: false ,
+                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='heart-pulse' color={color} size={size}/>)
                       }} />
             </Tab.Navigator>
     )
