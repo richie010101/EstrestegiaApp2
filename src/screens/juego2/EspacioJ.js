@@ -81,7 +81,7 @@ export default function EspacioJ (props) {
 const styles = StyleSheet.create({
     juego:{
       width:"98%",
-      height:"47%",
+      height:"49.5%",
       backgroundColor:"#80D6E4",
       marginTop:20,
       alignContent:'center',
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
       width:2,
       height:"100%",
       backgroundColor:"#000000",
-      
     },
     lineaV:{
       position:'absolute',

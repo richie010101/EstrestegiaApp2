@@ -42,9 +42,9 @@ export default function Reproductor({route}) {
             />
             </View>
             <View style={styles.caja}>
-              <Text style={styles.videoText}> {titulo}</Text>
-              <Text style={styles.videoText2}> {canal}</Text>
-              <Text numberOfLines={mostrar} style={styles.videoText3} onPress={()=>muestra()}> {sinopsis}</Text>
+              <Text style={styles.videoText}>{titulo}</Text>
+              <Text style={styles.videoText2}>{canal}</Text>
+              <Text numberOfLines={mostrar} style={styles.videoText3} onPress={()=>muestra()}>{sinopsis}</Text>
             </View>
               <Text style={styles.videoText4}> cada video obtenido de Youtube en la plataforma 'Estrestegia' 
                                                 se origina en fuentes confiables con el propósito de brindar a los 

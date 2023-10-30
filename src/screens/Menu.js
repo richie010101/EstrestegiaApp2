@@ -26,7 +26,7 @@ export default class Menu extends Component {
                 <Tab.Screen name="Herramientas" component={HerramientasMenu} 
                       options={{
                          headerShown: false ,
-                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='lungs' color={color} size={size}/>)
+                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='leaf' color={color} size={size}/>)
                       }} />
                 <Tab.Screen name="Apoyo" component={Apoyo} 
                       options={{
