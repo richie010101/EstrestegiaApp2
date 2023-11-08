@@ -11,6 +11,7 @@ import JuegosMenu from './src/screens/JuegosMenu';
 import Reproductor from './src/components/Reproductor';
 import HerramientasMenu from './src/screens/HerramientasMenu';
 import Apoyo from './src/screens/Apoyo';
+import CrearCuenta from './src/screens/CrearCuenta';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
             <Stack.Screen name='Herramientas' component={HerramientasMenu} options={{ headerShown: false }} />
             <Stack.Screen name='Reproductor' component={Reproductor} options={{ headerShown: false }}/>
             <Stack.Screen name='Apoyo' component={Apoyo} options={{ headerShown: false }}/>
+            <Stack.Screen name='Crear' component={CrearCuenta} options={{ headerShown: false }}/>
           </Stack.Navigator>
         </NavigationContainer>
      

@@ -7,7 +7,6 @@ import { firebaseConfig } from '../components/firebase';
 import Footer from '../components/Footer';
 import {LinearGradient} from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-
 import { LogBox } from 'react-native';
 
 
@@ -29,8 +28,8 @@ function Login() {
   const [error1,setError] = useState('');
   
   const crear = () => {
-    
-    createUserWithEmailAndPassword(auth,correo,contrasena)
+    navigation.navigate('Crear');
+   /* createUserWithEmailAndPassword(auth,correo,contrasena)
     .then((userCredential) => {
       console.log('Cuenta Creada')
       const user = userCredential.user;
@@ -39,7 +38,7 @@ function Login() {
     })
     .catch(error => {
       errores(error.message);
-    })
+    })*/
   }
   
   const ver = () => {
