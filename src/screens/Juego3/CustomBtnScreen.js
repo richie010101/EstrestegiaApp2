@@ -306,6 +306,15 @@ const styles = StyleSheet.create(
         alignItems: "center",
         paddingLeft: 40
     },
+    apoyo:{
+        borderWidth:3,
+        borderColor:"#840957",
+        position: "absolute",
+        marginTop:"25%",
+        width:"85%",
+        height:"75%",
+        backgroundColor:"#FAFAFA",
+      },
     puzzleSeeds:{
         marginTop: 70,
         flex: 1,
