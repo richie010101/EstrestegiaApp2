@@ -6,8 +6,7 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { LogBox } from 'react-native';
 import EspacioJ from './EspacioJ';
-import Casilla from './Casilla';
-import  {crear} from './tableros'
+import  {crear} from './tableros';
 
 
 var tableros
@@ -60,8 +59,11 @@ for (var i=0;i<41;i++){
 
 
 
+
 export default function Juego1()  {
   const[valor,SetValor]=useState();
+  const[ayuda,setAyuda]=useState(1);
+  const[zindex1,setZindex]=useState(1);
   const[terminar,setTerminar]=useState("Jugando..");
   
  
@@ -78,6 +80,11 @@ export default function Juego1()  {
 
   const cambiar=(nuevo) => {
     SetValor(nuevo)
+  }
+
+  const cerrar=() => {
+    setAyuda(0);
+    setZindex(-1);
   }
 
   
@@ -123,6 +130,15 @@ export default function Juego1()  {
               <Text> {terminar} </Text>
             <EspacioJ  styles={styles.juego} valor={valor} ver={ver} bloqueados={bloqueados} sudoku={sudoku}></EspacioJ>
 
+            <View style={[styles.apoyo,{opacity: ayuda, zIndex: zindex1}]}> 
+                <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
+                  <Text style={{fontFamily:"prueba2",marginTop:"3%"}}> ¿Como se juega?</Text>
+                  <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"15%"}}> Sudoku es un juego de lógica donde tienes una cuadrícula de 9x9 celdas dividida en bloques de 3x3. Debes rellenar la cuadrícula con los números del 1 al 9, asegurándote de que no se repitan los números en ninguna fila, columna o bloque de 3x3. Comienzas con algunas celdas ya completadas y debes llenar el resto aplicando la lógica para evitar repeticiones.</Text>
+                  <TouchableOpacity onPress={()=>cerrar()}>
+                    <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"15%"}}> Cerrar</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+            </View>
             
 
             <View style={styles.botones}>
@@ -183,6 +199,15 @@ const styles = StyleSheet.create({
     backgroundColor:"#80D6E4",
     marginTop:0,
     alignContent:'center',
+  },
+  apoyo:{
+    borderWidth:3,
+    borderColor:"#840957",
+    position: "absolute",
+    marginTop:"25%",
+    width:"85%",
+    height:"75%",
+    backgroundColor:"#FAFAFA",
   },
   botones:{
     marginLeft:"2%",

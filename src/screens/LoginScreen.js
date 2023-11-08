@@ -100,8 +100,9 @@ function Login() {
             source={require('../images/logo.png')} />
         
         </View>
-
+        
         <View style={estilos.viewI}>
+        <Text style={estilos.respuesta2}> Correo</Text>
             <TextInput
                 placeholder="Correo" 
                 placeholderTextColor='#606060'
@@ -110,6 +111,7 @@ function Login() {
                 style={estilos.input}
                 
             />
+            <Text style={estilos.respuesta2}> Contraseña</Text>
             <TextInput 
                 placeholder="Contraseña"
                 placeholderTextColor='#606060'
@@ -117,7 +119,6 @@ function Login() {
                 onChangeText={(text) => setContrasena(text)}
                 style={estilos.input}
             />
-        
             <TouchableOpacity 
                 onPress={logear}
                 style={[estilos.botones, {marginTop:30}]}>
@@ -165,6 +166,13 @@ const estilos = StyleSheet.create({
     width:"50%",
     textAlign:'center',
   },
+  respuesta2:{
+    fontWeight:"bold",
+    fontSize:15,
+    color:"#FAFAFA",
+    width:"50%",
+    textAlign:'center',
+  },
   fondo:{
       height:'100%',
       zIndex:-1,
@@ -188,7 +196,7 @@ const estilos = StyleSheet.create({
       
   },
   viewI:{
-      marginTop:80,
+      marginTop:"8%",
       justifyContent: "center",
       alignItems:'center',
   },
