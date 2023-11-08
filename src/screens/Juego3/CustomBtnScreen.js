@@ -217,13 +217,13 @@ const CustomBtnScreen = () => {
         
         <SafeAreaView style={[GlobalStyles.androidSafeArea2,{alignItems:'center',alignContent:'center'}]}>
             <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
+           
             <View style={GlobalStyles.logo}>
             <Image style={GlobalStyles.logo2} 
                 source={require("../../images/logo2.png")} />
             </View>
             <Text style={{marginTop:30,  fontSize: 40,fontFamily:"prueba2"}}> Rompecabezas </Text>
-               
-
+            
              
         <View>
 

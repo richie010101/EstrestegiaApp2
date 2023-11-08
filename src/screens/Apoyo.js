@@ -70,6 +70,12 @@ export default function Apoyo() {
                                       plataforma, te brindamos mas recursos de apoyo que podrian servirte, recuerda, 
                                       tu salud mental es importante.
                                       {'\n'}</Text>
+
+            <Text style={styles.text2}>Apoyo local ITM</Text>
+            <Telefono tel={"4431687259"} />
+            <Text style={[styles.text, styles.sub ]}>La psicóloga Cecilia Ekaterina Cornejo García, ofrece atención gratuita a los
+                                                    estudiantes del Instituto Tecnológico de Morelia y brindar apoyo en las situaciones 
+                                                    que se encuentren. </Text>                          
     
             <Text style={styles.text2}>Consejería SAPTEL</Text>
             <Telefono tel={"55 5259 8121"} />
@@ -86,12 +92,33 @@ export default function Apoyo() {
             <Telefono tel={"4432327000 AL 02"}/>
             <Text style={[styles.text, styles.sub ]}>Acompañamiento a mujeres en situación de crisis, terapia
                                                      individual y/o pareja, grupos terapéuticos, grupos de contención,
-                                                     pláticas y talleres
+                                                     pláticas y talleres.
                                                      </Text>
-            <Text style={styles.text2}>Linea de apoyo</Text>
-            <Telefono tel={4434131547}/>
-            <Text style={styles.text2}>Linea de apoyo</Text>
-            <Telefono tel={4434131547}/>
+            <Text style={styles.text2}>UNAM</Text>
+            <Telefono tel={"55 5025 0855"}/>
+            <Text style={[styles.text, styles.sub ]}>Línea de atención psicológica call center especializada en salud mental: 
+                                                    ofrecen ayuda de primer contacto en temas como problemas de ansiedad, crisis, entre otros.
+                                                     </Text>
+            <Text style={styles.text2}>Centros de integración juvenil</Text>
+            <Telefono tel={"5552121212"}/>
+            <Text style={[styles.text, styles.sub ]}>Apoyo psicológico gratuito de lunes a domingo de 8:30 am a 10:00 pm.
+                                                     </Text>
+
+            <Text style={styles.text2}>Consejo ciudadano para la seguridad y justicia de la ciudad de México</Text>
+            <Telefono tel={"55 5533 5533"}/>
+            <Text style={[styles.text, styles.sub ]}>Se brindan primeros auxilios psicológicos las 24 horas todos los días.
+                                                     </Text>
+
+            <Text style={styles.text2}>Educatel SEP</Text>
+            <Telefono tel={"55 3601 7599"}/>
+            <Text style={[styles.text, styles.sub ]}>Servicio de atención psicológica que ofrece la SEP.
+                                                     </Text>  
+
+            <Text style={styles.text2}>Línea UAM</Text>
+            <Telefono tel={"555 804 6444"}/>
+            <Text style={[styles.text, styles.sub ]}>Su línea de asistencia psicológica gratuita ofrece orientación en problemas emocionales,
+                                                    inició como un servicio dirigido a universitarios, pero actualmente atiende a la población general.
+                                                     </Text>                                       
 
 
 
