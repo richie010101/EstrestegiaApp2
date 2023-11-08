@@ -1,4 +1,4 @@
-import { Text, Image, StyleSheet, View, ImageBackground, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
+import { Text, Image, StyleSheet, View, ImageBackground, SafeAreaView, TouchableOpacity, Alert, Modal } from 'react-native'
 import React, { Component, useState } from 'react'
 import CustomBtn from './CustomBtn'
 import GlobalStyles from '../../styles/GlobalStyles'
@@ -8,6 +8,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import { LogBox } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import SimpleModal from './SimpleModal'
 
 
 
@@ -17,11 +18,16 @@ const CustomBtnScreen = () => {
     const [intPositions, setInitPositions] = useState ([1,2,3,4,5,6,7,8,null]);
     const [toggle, setToggle] = useState(false);
     const [start, setStart] = useState(false);
+   
+
+   
+    
 
     const msg = () => {
 
         if(start){
             var counter = 0;
+           
 
             for(let i=0; i<positions.length; i++){
                 if(positions[i] !== intPositions[i]){
@@ -202,6 +208,10 @@ const CustomBtnScreen = () => {
 
     }
 
+    
+  
+    
+
     LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
 
     let [fontsLoaded]= useFonts({
@@ -239,10 +249,17 @@ const CustomBtnScreen = () => {
         </View>
         </ImageBackground>
 
+
+    
      
        <TouchableOpacity style={styles.start}
+
+
        
-       onPress={()=>{
+       onPress={()=> {
+        
+       
+         
         SetPositions(() => [8,2,3,7,5,null,4,1,6]);
         setToggle(!toggle);
         setStart(true);
@@ -253,12 +270,18 @@ const CustomBtnScreen = () => {
 
        </TouchableOpacity>
 
+      
+         
 
         </View>
         </LinearGradient>
         </SafeAreaView>
       ) 
 }
+
+
+
+
 
 const styles = StyleSheet.create(
 {
