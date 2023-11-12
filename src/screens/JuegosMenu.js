@@ -41,15 +41,13 @@ export default function JuegosMenu(props) {
         </View>
         <Text style={[styles.letra]}>Celebra tus logros,Incluso los pequeños..</Text>
         <Text style={styles.letra}>es importante.</Text>
-        <View style={[styles.games, { marginTop: 30 }]}>
-          <BotonJuego nombre={"Memoria"} viajar={viajar} nombre2={'Juego1'} direccion={"../images/juego1/Inicio.png"} />
-          <BotonJuego2 nombre={"Aprendiendo"} viajar={viajar} nombre2={'Juego2'} direccion={"../images/juego1/Inicio.png"} />
+        <View style={[styles.games]}>
+          <BotonJuego nombre={"Dominio de Colores"} viajar={viajar} nombre2={'Juego1'} direccion={"../images/juego1/Inicio.png"} />
+          <BotonJuego2 nombre={"Sudoku"} viajar={viajar} nombre2={'Juego2'} direccion={"../images/juego1/Inicio.png"} />
         </View>
         <View style={styles.games}>
           <BotonJuego3 nombre={"Rompecabezas"} viajar={viajar} nombre2={'Juego3'} direccion={"../images/juego1/Inicio.png"} />
-
         </View>
-
 
 
       </LinearGradient>
@@ -63,18 +61,15 @@ const styles = StyleSheet.create({
     fontFamily: "NextBro2",
     fontSize: 15,
   },
-  juego: {
-    margin: 15,
-    width: "40%",
-    height: 180,
-    backgroundColor: "#FAFFD0",
-    borderRadius: 20,
-    alignContent: 'center',
-    alignItems: 'center',
-  },
   games: {
+    marginTop:"9%",
+    height:"30%",
+    width:"80%",
     flexDirection: 'row',
     alignContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderWidth:0,
+    borderRadius:3,
+    
   }
 })

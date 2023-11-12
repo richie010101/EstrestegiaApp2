@@ -136,9 +136,9 @@ export default function Juego1(props) {
         <View style={[styles.apoyo, { opacity: ayuda, zIndex: zindex1 }]}>
           <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
             <Text style={{ fontFamily: "prueba2", marginTop: "3%" }}> ¿Como se juega?</Text>
-            <Text style={{ fontFamily: "prueba2", width: "75%", marginTop: "15%" }}> Sudoku es un juego de lógica donde tienes una cuadrícula de 9x9 celdas dividida en bloques de 3x3. Debes rellenar la cuadrícula con los números del 1 al 9, asegurándote de que no se repitan los números en ninguna fila, columna o bloque de 3x3. Comienzas con algunas celdas ya completadas y debes llenar el resto aplicando la lógica para evitar repeticiones.</Text>
-            <TouchableOpacity onPress={() => cerrar()}>
-              <Text style={{ fontFamily: "prueba2", width: "75%", marginTop: "15%" }}> Cerrar</Text>
+            <Text style={{ fontFamily: "prueba2", width: "75%", marginTop: "15%", textAlign:'justify' }}>Sudoku es un juego de lógica donde tienes una cuadrícula de 9x9 celdas dividida en bloques de 3x3. Debes rellenar la cuadrícula con los números del 1 al 9, asegurándote de que no se repitan los números en ninguna fila, columna o bloque de 3x3. Comienzas con algunas celdas ya completadas y debes llenar el resto aplicando la lógica para evitar repeticiones.</Text>
+            <TouchableOpacity onPress={() => cerrar()} style={{ width: "75%" }}>
+              <Text style={{ paddingTop: 10, marginTop: "80%", fontFamily: "prueba2", marginTop: "3%", borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Cerrar</Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
