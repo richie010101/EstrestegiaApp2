@@ -12,13 +12,14 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const Tab = createBottomTabNavigator();
 
 
-
-export default class Menu extends Component {
-  render() {
-
+export default function Menu(props) {
+  const{route}=props;
+  const{usuario}=route.params;
+  console.log("el usuario es " + usuario);
     return (
-            <Tab.Navigator>
+            <Tab.Navigator  >
                 <Tab.Screen name="Juegos" component={JuegosMenu} 
+                      initialParams={{usuario: usuario}}
                       options={{ 
                         headerShown: false, 
                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='shield' color={color} size={size}/>)
@@ -35,7 +36,6 @@ export default class Menu extends Component {
                       }} />
             </Tab.Navigator>
     )
-  }
 }
 
 const styles = StyleSheet.create({

@@ -60,7 +60,11 @@ for (var i=0;i<41;i++){
 
 
 
-export default function Juego1()  {
+export default function Juego1(props)  {
+
+  const{route}=props;
+  const{usuario}=route.params;
+  console.log(usuario);
   const[valor,SetValor]=useState();
   const[ayuda,setAyuda]=useState(1);
   const[zindex1,setZindex]=useState(1);

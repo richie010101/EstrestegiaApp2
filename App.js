@@ -25,10 +25,7 @@ export default function App() {
             <Stack.Screen name='Juego1' component={Juego1} options={{ headerShown: false }} />
             <Stack.Screen name='Juego2' component={Juego2} options={{ headerShown: false }} />
             <Stack.Screen name='Juego3' component={Juego3} options={{ headerShown: false }} />
-            <Stack.Screen name='MenuJ' component={JuegosMenu} options={{ headerShown: false }} />
-            <Stack.Screen name='Herramientas' component={HerramientasMenu} options={{ headerShown: false }} />
             <Stack.Screen name='Reproductor' component={Reproductor} options={{ headerShown: false }}/>
-            <Stack.Screen name='Apoyo' component={Apoyo} options={{ headerShown: false }}/>
             <Stack.Screen name='Crear' component={CrearCuenta} options={{ headerShown: false }}/>
           </Stack.Navigator>
         </NavigationContainer>

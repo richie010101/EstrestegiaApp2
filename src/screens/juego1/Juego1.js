@@ -1,10 +1,63 @@
 import { Text, View,SafeAreaView,TouchableOpacity ,StyleSheet,Image} from 'react-native'
-import React, {useState } from 'react'
+import React, {useState, useEffect } from 'react'
+import { collection, addDoc,doc } from "firebase/firestore";
 import GlobalStyles from '../../styles/GlobalStyles';
 import {LinearGradient} from 'expo-linear-gradient';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { LogBox } from 'react-native';
+import { firebaseConfig } from '../../components/firebase';
+import {initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import BackgroundTimer from 'react-native-background-timer';
 
-export default function Juego1() {
-    const[buenas,setBuenas]=useState(0);
+
+
+
+
+
+
+export default function Juego1(props) {
+
+
+  
+    const firebase= initializeApp(firebaseConfig);
+    database=getFirestore();
+
+    const { startingMinutes = 0, startingSeconds = 30 } = props;
+    const [mins, setMinutes] = useState(startingMinutes);
+    const [secs, setSeconds] = useState(startingSeconds);
+    const [termino2,setTermino2]=useState(0);
+    const [bloqueo,setBloqueo]=useState(false);
+    const [subido,setSubido]=useState(false);
+
+    const[diff,setDiff]=useState(null)
+    const[initial,setInitial]=useState(null)
+
+    const empezar=() =>{
+      const terminar=setInterval(cronometro,30000);
+    }
+    
+
+    function cronometro (){
+     // clearInterval(sampleInterval);
+      setTermino2(1);
+      setBloqueo(true);
+      if(!subido){
+        subir();
+        setSubido(true);
+      }
+    }
+
+    const{route}=props;
+    const{usuario}=route.params;
+    const[resultado,setBuenas]=useState({
+      numero:0,
+      user:usuario,
+    });
+
+
+
     let colores=["azul","negro","rojo","verde","violeta"]
     let coloresValor=["#03F5FD","#000000","#FF0000","#00FF66","#D300FD"]
     
@@ -16,16 +69,26 @@ export default function Juego1() {
     const[palabra2Color,setPalabra2Color]=useState("#00FF66");
 
 
-    const[empezo,setEmpezo]=useState(false);
-    const[termino,setTermino]=useState(false);
 
 
     const  sumar=()=>{
-      setBuenas(buenas+1)
-      console.log(buenas);
+      if (resultado.numero===0){
+        empezar();
+      }
+      
+      resultado.numero=resultado.numero + 1;
+      console.log(resultado.numero);
+
+
+  
+    }
+
+    const subir= async() =>{
+        await addDoc(collection(database, usuario + '-Juego1',), resultado);
     }
 
     const igual=() =>{
+      console.log(usuario );
         if(palabra1===colores[0]){
           if(palabra2Color===coloresValor[0]){
             sumar()
@@ -55,6 +118,7 @@ export default function Juego1() {
     }
 
     const diferente=() =>{
+      console.log("hola");
       if(palabra1===colores[0]){
         if(palabra2Color!==coloresValor[0]){
           sumar()
@@ -104,6 +168,18 @@ export default function Juego1() {
 
     }
 
+    LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
+
+    let [fontsLoaded]= useFonts({
+      "prueba2" :require("../../fonts/NextBro.ttf"),
+    });
+  
+    if (!fontsLoaded) {
+      return <AppLoading/>;
+    }
+
+    
+
     return (
       <SafeAreaView style={[GlobalStyles.androidSafeArea,{alignItems:'center',alignContent:'center'}]}>
 
@@ -117,16 +193,30 @@ export default function Juego1() {
             <Text style={{color:"#000000",fontSize:13,textAlign:'justify' }}>Explicacion: si la palabra de arriba dice el color de la plabra de abajo Selecciona Verdadero, de lo contrario selecciona Falso</Text>
             
             </View>
+
+            <View style={[styles.final,{opacity:termino2,zIndex:2}]}>
+            <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
+              <Text style={{fontFamily:"prueba2",marginTop:"20%",fontSize:30}}> ¡Felicidades! lograste  </Text>
+              <Text style={{fontFamily:"prueba2",marginTop:"20%",fontSize:50}}> {resultado.numero}   </Text>
+              <Text style={{fontFamily:"prueba2",marginTop:"20%",fontSize:30}}> respuestas correctas   </Text>
+              <TouchableOpacity >
+                    <Text style={{paddingTop:10,marginTop:"80%",fontFamily:"prueba2", marginTop:"15%",borderWidth:2,fontSize:20}}> Ver mis estadisticas</Text>
+                  </TouchableOpacity>
+              </LinearGradient>
+              
+            </View>
            
               <Text style={[styles.palabras,{color:palabra1Color,marginTop:140}]}> {palabra1}</Text>
               <Text style={[styles.palabras,{color:palabra2Color,marginBottom:80}]}> {palabra2}</Text>
-            
-           
+
+
+              
             <View style={styles.botones}>
-              <TouchableOpacity style={styles.boton} onPress={()=>diferente()}>
+              
+              <TouchableOpacity style={styles.boton} onPress={()=>diferente()} disabled={bloqueo}>
                 <Text style={{color:"#FAFAFA",paddingTop:"6%"}}> Falso</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.boton} onPress={()=>igual()}>
+              <TouchableOpacity style={styles.boton} onPress={()=>igual()} disabled={bloqueo} >
                 <Text style={{color:"#FAFAFA",paddingTop:"6%"}}> Verdadero</Text>
               </TouchableOpacity>
             </View>
@@ -156,6 +246,15 @@ const styles =StyleSheet.create({
     paddingLeft:5,
     
   },
+  final:{
+    position:'absolute',
+    width:"85%",
+    height:"70%",
+    textAlign:'center',
+    backgroundColor:"#FAFAFA",
+    marginTop:"30%",
+  },
+
   palabras:{
     borderRadius:15,
     fontSize:60,

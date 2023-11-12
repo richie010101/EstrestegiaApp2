@@ -53,10 +53,11 @@ function Login() {
     .then((userCredential) => {
       
       setError('Sesion Iniciada');
-      console.log('Cuenta logeada')
       const user = userCredential.user;
-      //console.log(user);
-      navigation.navigate("Menu");
+      console.log(user.uid);
+      user1=user.uid;
+      console.log('Cuenta logeada')
+      navigation.navigate("Menu", {usuario:user1});
     })
     .catch(error => {
     // console.log(error);

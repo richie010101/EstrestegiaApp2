@@ -9,7 +9,10 @@ import AppLoading from 'expo-app-loading';
 import { LogBox } from 'react-native';
 
 
-export default function JuegosMenu() {
+export default function JuegosMenu(props) {
+  const{route}=props;
+  const{usuario}=route.params;
+  console.log("se obtiene " + usuario);
   LogBox.ignoreLogs(["expo-app-loading is deprecated","React has detected a change in the order of Hooks"]);
         
   let [fontsLoaded] = useFonts({
@@ -23,8 +26,8 @@ export default function JuegosMenu() {
 
   const navigation=useNavigation(); 
   const  viajar=(screen) =>{
-    console.log("viajando " + screen );
-    navigation.navigate(screen);
+    console.log("viajando " + screen, );
+    navigation.navigate(screen,{usuario:usuario} );
   }
 
     return (
@@ -44,7 +47,7 @@ export default function JuegosMenu() {
             </View>
             <View style={styles.games}>
               <BotonJuego3 nombre={"Rompecabezas"} viajar={viajar} nombre2={'Juego3'} direccion={"../images/juego1/Inicio.png"} />
-              <BotonJuego4 nombre={"Buscando"} viajar={viajar} nombre2={'Juego2'} direccion={"../images/juego1/Inicio.png"}/>
+              
             </View>
             
 

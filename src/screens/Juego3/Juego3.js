@@ -7,13 +7,15 @@ import GlobalStyles from '../../styles/GlobalStyles'
 
 
 
-export default class Juego3 extends Component {
-  render() {
+export default  function Juego3(props) {
+
+  const{route}=props;
+  const{usuario}=route.params;
+  console.log(usuario);
     return (          
         <CustomBtnScreen />
       
     )
-  }
 }
 
 const styles = StyleSheet.create({
