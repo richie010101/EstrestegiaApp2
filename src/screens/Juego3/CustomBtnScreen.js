@@ -2,7 +2,7 @@ import { Text, Image, StyleSheet, View, ImageBackground, SafeAreaView, Touchable
 import React, { Component, useState } from 'react'
 import CustomBtn from './CustomBtn'
 import GlobalStyles from '../../styles/GlobalStyles'
-import gameBg from '../../images/juego3/descargam.png'
+import gameBg from '../../images/juego3/rompecocos0000.png'
 import startbtn from '../../images/juego3/margen.png'
 import {LinearGradient} from 'expo-linear-gradient'
 import { LogBox } from 'react-native';
@@ -12,16 +12,22 @@ import SimpleModal from './SimpleModal'
 
 
 
+
 const CustomBtnScreen = () => {
 
     const [positions, SetPositions] = useState ([1,2,3,4,5,6,7,8,null]);
     const [intPositions, setInitPositions] = useState ([1,2,3,4,5,6,7,8,null]);
     const [toggle, setToggle] = useState(false);
     const [start, setStart] = useState(false);
+    const[ayuda,setAyuda]=useState(1);
+    const[zindex1,setZindex]=useState(1);
    
 
    
-    
+    const cerrar=() => {
+        setAyuda(0);
+        setZindex(-1);
+      }
 
     const msg = () => {
 
@@ -231,14 +237,26 @@ const CustomBtnScreen = () => {
             <Image style={GlobalStyles.logo2} 
                 source={require("../../images/logo2.png")} />
             </View>
-            <Text style={{marginTop:30,  fontSize: 40,fontFamily:"prueba2"}}> Rompecabezas </Text>
+            <Text style={{marginTop:30,  fontSize: 40,fontFamily:"prueba2"}}> Klotski </Text>
 
             <View style={[styles.apoyo,{opacity: ayuda, zIndex: zindex1}]}> 
                 <LinearGradient colors={['#00FFEB','#285EE8']} style={GlobalStyles.screen}>
-                  <Text style={{fontFamily:"prueba2",marginTop:"3%"}}> ¿Como se juega?</Text>
-                  <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"15%"}}> Sudoku es un juego de lógica donde tienes una cuadrícula de 9x9 celdas dividida en bloques de 3x3. Debes rellenar la cuadrícula con los números del 1 al 9, asegurándote de que no se repitan los números en ninguna fila, columna o bloque de 3x3. Comienzas con algunas celdas ya completadas y debes llenar el resto aplicando la lógica para evitar repeticiones.</Text>
+                  <Text style={{fontFamily:"prueba2",marginTop:"3%", fontSize: 30}}> ¿Como se juega?</Text>
+                  <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"15%", textAlign: 'justify', fontSize: 15}}> 
+                  Klotski es un rompecabezas de piezas deslizantes, el cual está compuesto de 8 números para facilitar su manejo
+                  el objetivo es colocar en orden todos los números utilizando movimientos de deslizamiento. {'\n'}
+                  {'\n'}
+                  Anímate y enfrentate a este desafío. {'\n'}
+                  Inicialmente daremos clic en el botón inicio para que nos acomode el klotsi de manera aleatoria.</Text>
+                  <Image  style={styles.esti} source={require("../../images/juego3/bt.png")} />
+                  <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"8%", textAlign: 'justify', fontSize: 15}}> 
+                  Seguido de esto, daremos clic en el número que deseamos mover que este cerca de la casilla gris para que se pueda mover
+                  de forma que se pueda acomodar el rompecabezas en su orden correcto.</Text>
+                  <Image  style={styles.esti2} source={require("../../images/juego3/chek.png")} />
+
+
                   <TouchableOpacity onPress={()=>cerrar()}>
-                    <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"15%"}}> Cerrar</Text>
+                    <Text style={{fontFamily:"prueba2", width:"75%",marginTop:"8%", borderWidth: 2, fontSize: 30}}> Cerrar</Text>
                   </TouchableOpacity>
                 </LinearGradient>
             </View>
@@ -263,13 +281,13 @@ const CustomBtnScreen = () => {
 
     
      
-       <TouchableOpacity style={styles.start}
-
-
+       <TouchableOpacity style={styles.start} 
+      
+      
        
        onPress={()=> {
         
-       
+        
          
         SetPositions(() => [8,2,3,7,5,null,4,1,6]);
         setToggle(!toggle);
@@ -277,7 +295,8 @@ const CustomBtnScreen = () => {
     
     }}
         >
-           
+             
+             <Text style={{fontFamily:"prueba2",marginTop:"12%", paddingLeft: 40, fontSize: 20, color: "#0b3b7d"}}> INICIO</Text>
 
        </TouchableOpacity>
 
@@ -304,16 +323,17 @@ const styles = StyleSheet.create(
         height: 380,
         width: 380,
         alignItems: "center",
-        paddingLeft: 40
+        paddingLeft: 40,
     },
     apoyo:{
         borderWidth:3,
-        borderColor:"#840957",
+        borderColor:"black",
         position: "absolute",
-        marginTop:"25%",
+        marginTop:"20%",
         width:"85%",
-        height:"75%",
+        height:"85%",
         backgroundColor:"#FAFAFA",
+        
       },
     puzzleSeeds:{
         marginTop: 70,
@@ -325,14 +345,22 @@ const styles = StyleSheet.create(
         alignItems: "center",
     },
     start:{
-        backgroundColor: "#8e2525",
+        backgroundColor: "#e6f1ff",
         flex: 0.5,
-        height: 100,
+        height: 50,
         width: 150,
         position:'absolute',
         left: 120, 
-        bottom:170,
+        bottom:230,
 
+    }, esti:{
+        height: 40,
+        width: 60,
+        marginTop:"5%"
+    },esti2:{
+        height: 150,
+        width: 150,
+        marginTop: "4%"
     }
 }
 );

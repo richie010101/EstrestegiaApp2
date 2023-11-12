@@ -15,14 +15,16 @@ const CustomBtn = (props) =>{
   border-radius: 3px;
   margin: 0.3px;
   margin-left: 0.3px;
-  background-color: ${props.label? "#2a2" : "#444" }; 
+  background-color: ${props.label? "#b4cded" : "#444" }; 
+
 
   `
 
   return (
     <TouchableOpacity onPress={props.myFun}>
     <Container>
-      <Text>
+      <Text style={{fontSize:20}}>
+
         {props.label}
       </Text>
     </Container>
