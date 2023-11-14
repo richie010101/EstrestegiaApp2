@@ -42,11 +42,11 @@ export default function Reproductor({route}) {
             />
             </View>
             <View style={styles.caja}>
-              <Text style={styles.videoText}> {titulo}</Text>
-              <Text style={styles.videoText2}> {canal}</Text>
-              <Text numberOfLines={mostrar} style={styles.videoText3} onPress={()=>muestra()}> {sinopsis}</Text>
+              <Text style={styles.videoText}>{titulo}</Text>
+              <Text style={styles.videoText2}>{canal}</Text>
+              <Text numberOfLines={mostrar} style={styles.videoText3} onPress={()=>muestra()}>{sinopsis}</Text>
             </View>
-              <Text style={styles.videoText4}> cada videos alojado en la plataforma 'Estrestegia' 
+              <Text style={styles.videoText4}> cada video obtenido de Youtube en la plataforma 'Estrestegia' 
                                                 se origina en fuentes confiables con el propósito de brindar a los 
                                                 usuarios información que les permita llevar una vida más saludable e 
                                                 informada.</Text>
@@ -95,11 +95,13 @@ const styles = StyleSheet.create({
         position:'absolute',
         marginLeft:"2%",
         width:"96%",
+        
       },
       caja:{
         justifyContent:'center',
         marginTop:5,
         marginLeft:"2%",
+        marginRight:"2%",
         width:"96%",
       },
 })
