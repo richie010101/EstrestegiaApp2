@@ -1,5 +1,5 @@
 import { Text, StyleSheet, View, SafeAreaView, Image, Touchable, TouchableOpacity } from 'react-native'
-import React, { Component, useState } from 'react'
+import React, { Component, useState , useEffect} from 'react'
 import GlobalStyles from '../../styles/GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
@@ -7,6 +7,7 @@ import AppLoading from 'expo-app-loading';
 import { LogBox } from 'react-native';
 import EspacioJ from './EspacioJ';
 import { crear } from './tableros';
+import { useNavigation } from '@react-navigation/native';
 
 
 var tableros
@@ -61,14 +62,43 @@ for (var i = 0; i < 41; i++) {
 
 export default function Juego1(props) {
 
+
   const { route } = props;
   const { usuario } = route.params;
-  console.log(usuario);
+  //console.log(usuario);
   const [valor, SetValor] = useState();
   const [ayuda, setAyuda] = useState(1);
   const [zindex1, setZindex] = useState(1);
   const [terminar, setTerminar] = useState("Jugando..");
+  const [acabar, setAcabar] = useState(false);
 
+
+  const [termino2, setTermino2] = useState(0);
+  const [index, setIndex] = useState(-1);
+
+
+  const [mins, setMinutes] = useState(0);
+  const [secs, setSeconds] = useState(0);
+  useEffect(() => {
+    let sampleInterval = setInterval(() => {
+      if (secs <59 ) {
+        setSeconds(secs + 1);
+      }
+      if (secs === 59) {
+          setMinutes(mins  + 1);
+          setSeconds(0);
+      }
+      if (acabar){
+        clearInterval(sampleInterval);
+       // console.log("acabando");
+       
+      }
+    }, 1000);
+    return () => {
+      clearInterval(sampleInterval);
+    };
+  });
+ // console.log(acabar);
 
 
   LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
@@ -88,6 +118,11 @@ export default function Juego1(props) {
   const cerrar = () => {
     setAyuda(0);
     setZindex(-1);
+  }
+
+  const navigation = useNavigation();
+  const salir = () => {
+    navigation.navigate("Menu", { usuario: usuario });
   }
 
 
@@ -113,8 +148,11 @@ export default function Juego1(props) {
     }
 
     if (iguales) {
+      setTermino2(1);
+      setIndex(2);
       console.log("Termino");
       setTerminar("Termino");
+      setAcabar(true);
     }
   }
 
@@ -123,6 +161,21 @@ export default function Juego1(props) {
   return (
     <SafeAreaView style={[GlobalStyles.androidSafeArea, { alignItems: 'center', alignContent: 'center' }]}>
 
+      <View style={[styles.final, { opacity: termino2, zIndex: index }]}>
+          <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
+            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 30 }}> ¡Felicidades! terminaste en  </Text>
+            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 50 }}>  {mins} : {secs} {terminar}</Text>
+            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 30 }}> tiempo  </Text>
+            <TouchableOpacity  style={{ width: "75%" }} >
+              <Text style={{ paddingTop: 10, marginTop: "80%", fontFamily: "prueba2", marginTop: "15%", borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Ver mis estadisticas</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => salir()} style={{ width: "75%" }} >
+              <Text style={{ paddingTop: 10, marginTop: "80%", fontFamily: "prueba2", marginTop: "15%", borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Ver mas juegos</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
+       
+
       <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
         <View style={GlobalStyles.logo}>
           <Image style={GlobalStyles.logo2}
@@ -130,7 +183,8 @@ export default function Juego1(props) {
         </View>
         <Text style={{ marginTop: 30, fontSize: 40, fontFamily: "prueba2" }}> Sudoku </Text>
 
-        <Text> {terminar} </Text>
+        <Text> {" "}
+        {mins < 10 ? `0${mins}` : mins}:{secs < 10 ? `0${secs}` : secs}</Text>
         <EspacioJ styles={styles.juego} valor={valor} ver={ver} bloqueados={bloqueados} sudoku={sudoku}></EspacioJ>
 
         <View style={[styles.apoyo, { opacity: ayuda, zIndex: zindex1 }]}>
@@ -202,6 +256,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#80D6E4",
     marginTop: 0,
     alignContent: 'center',
+  },
+  final: {
+    position: 'absolute',
+    width: "85%",
+    height: "80%",
+    textAlign: 'center',
+    backgroundColor: "#FAFAFA",
+    marginTop: "30%",
+    borderWidth: 2,
   },
   apoyo: {
     borderWidth: 3,
