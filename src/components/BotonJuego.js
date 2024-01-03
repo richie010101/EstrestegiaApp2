@@ -10,13 +10,14 @@ export default function BotonJuego (props) {
     return (
         <TouchableOpacity 
             onPress={() => viajar(nombre2)}
-            style={styles.juego}>
-            <View style={styles.content}>
-                <Image style={styles.imagen} source={require('../images/juego1/Inicio.png')} />
+            style={styles.final}>
+            <View >
+                <Image style={{width:"100%", height:"85%" , borderRadius:7}} source={require('../images/juego1/ejemplo2.png')} />
             </View>
+            
             <View style={styles.titulo} >
-                <Text style={{color:"#000000", fontSize:16, marginTop:15}}>{nombre} </Text>
-            </View>
+                <Text style={{marginLeft:"10%",width:"80%",color:"#000000", fontFamily: "NextBro", fontSize:16, marginTop:15,textAlign:'center'}}>{nombre} </Text>
+             </View> 
         </TouchableOpacity>
     )
 }
@@ -27,12 +28,12 @@ export function BotonJuego2(props){
     return (
         <TouchableOpacity 
             onPress={() => viajar(nombre2)}
-            style={styles.juego}>
+            style={styles.final}>
             <View style={styles.content}>
-                <Image style={styles.imagen} source={require('../images/juego1/Inicio.png')} />
+                <Image style={{width:"100%", height:"80%" , marginTop:"-2.8%", borderRadius:10}} source={require('../images/juego1/sBueno.png')} />
             </View>
             <View style={styles.titulo} >
-                <Text style={{color:"#000000", fontSize:16, marginTop:15}}>{nombre} </Text>
+                <Text style={{color:"#000000", fontFamily: "NextBro", fontSize:16, marginTop:15,textAlign:'center'}}>{nombre} </Text>
             </View>
         </TouchableOpacity>
     )
@@ -44,12 +45,12 @@ export function BotonJuego3(props){
     return (
         <TouchableOpacity 
             onPress={() => viajar(nombre2)}
-            style={styles.juego}>
+            style={styles.final}>
             <View style={styles.content}>
                 <Image style={styles.imagen} source={require('../images/juego2/puzzle.png')} />
             </View>
             <View style={styles.titulo} >
-                <Text style={{color:"#000000", fontSize:16, marginTop:15}}>{nombre} </Text>
+                <Text style={{color:"#000000", fontFamily: "NextBro", fontSize:16, marginTop:15,textAlign:'center'}}>{nombre} </Text>
             </View>
         </TouchableOpacity>
     )
@@ -66,7 +67,7 @@ export function BotonJuego4(props){
                 <Image style={styles.imagen} source={require('../images/juego1/Inicio.png')} />
             </View>
             <View style={styles.titulo} >
-                <Text style={{color:"#000000", fontSize:16, marginTop:15}}>{nombre} </Text>
+                <Text style={{color:"#000000", fontFamily: "NextBro", fontSize:16, marginTop:15,textAlign:'center'}}>{nombre} </Text>
             </View>
         </TouchableOpacity>
     )
@@ -74,38 +75,37 @@ export function BotonJuego4(props){
 
 const styles = StyleSheet.create({
     content:{
-        height:"70%",
+        height:"100%",
         width:"100%",
        
     },
+    final:{borderColor:"#000000", height:"100%", width:"47%", marginRight:"3%", marginLeft:"3%", borderWidth:1, borderRadius:7},
     imagen:{
-        bottom:0,
         height:"100%",
         width:"100%",
         zIndex:-1,
-        borderRadius: 10,
         resizeMode:'contain'
     },
     juego:{
-        margin:5,
-        marginTop:15,
+        //marginTop:"-8%",
+        borderWidth:1,
         width:"40%",
-        height:190,
+        height:"80%",
         backgroundColor:"#FAFFD0",
-        borderRadius:10,
+        borderRadius:1,
         alignContent:'center',
         alignItems:'center',
       },
       titulo:{
-        alignContent:'center',
-        alignItems:'center',
+       // alignContent:'center',
+       // alignItems:'center',
         position:'absolute',
         backgroundColor:"#C3E12D",
         height:"30%",
         width:"100%",
-        borderBottomEndRadius:10,
-        borderBottomLeftRadius:10,
-        bottom:-6
+        borderBottomEndRadius:7,
+        borderBottomLeftRadius:7,
+        bottom:0
       }
 })
 

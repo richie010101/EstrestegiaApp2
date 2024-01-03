@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import JuegosMenu from './JuegosMenu';
 import HerramientasMenu from './HerramientasMenu';
+import Apoyo from './Apoyo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 
@@ -11,25 +12,30 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const Tab = createBottomTabNavigator();
 
 
-
-export default class Menu extends Component {
-  render() {
-
+export default function Menu(props) {
+  const{route}=props;
+  const{usuario}=route.params;
+  console.log("el usuario es " + usuario);
     return (
-            <Tab.Navigator>
+            <Tab.Navigator  >
                 <Tab.Screen name="Juegos" component={JuegosMenu} 
+                      initialParams={{usuario: usuario}}
                       options={{ 
                         headerShown: false, 
-                        tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='controller-classic' color={color} size={size}/>)
+                        tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='shield' color={color} size={size}/>)
                         }}/>
                 <Tab.Screen name="Herramientas" component={HerramientasMenu} 
                       options={{
                          headerShown: false ,
-                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='scale-balance' color={color} size={size}/>)
+                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='leaf' color={color} size={size}/>)
+                      }} />
+                <Tab.Screen name="Apoyo" component={Apoyo} 
+                      options={{
+                         headerShown: false ,
+                         tabBarIcon:({color,size})=>(<MaterialCommunityIcons name='heart-pulse' color={color} size={size}/>)
                       }} />
             </Tab.Navigator>
     )
-  }
 }
 
 const styles = StyleSheet.create({
