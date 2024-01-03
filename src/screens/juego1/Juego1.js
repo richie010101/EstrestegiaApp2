@@ -15,10 +15,6 @@ import { Entypo } from '@expo/vector-icons';
 import * as RN from 'react-native';
 
 
-
-
-
-
 export function Puntuacion({
   id,
   numero,
@@ -27,11 +23,6 @@ export function Puntuacion({
   actual,
   cadena2
 }) {
-
-
-  /*return <Text style={{ margin: 15, fontFamily: "prueba2", fontSize: 18 }}>Puntaje.............................................{numero}</Text>
-  setMayor(numero)*/
-  //console.log(numero + actual)
   if (actual === numero && cadena === cadena2) {
     return <Text style={{ margin: 15, fontFamily: "prueba2", fontSize: 18, backgroundColor: "#FAFAFA", width: "80%", height: "4%", textAlign: 'center', textAlignVertical: 'center', paddingTop: "1%", borderRadius: 3 }}>Puntaje.............................................{numero}</Text>
   }

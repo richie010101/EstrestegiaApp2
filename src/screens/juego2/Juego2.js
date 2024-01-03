@@ -1,14 +1,31 @@
-import { Text, StyleSheet, View, SafeAreaView, Image, Touchable, TouchableOpacity } from 'react-native'
-import React, { Component, useState , useEffect} from 'react'
+import { Text, StyleSheet, View, SafeAreaView, Image, Touchable, TouchableOpacity, ScrollView } from 'react-native'
+import React, { Component, useState, useEffect } from 'react'
 import GlobalStyles from '../../styles/GlobalStyles'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { LogBox } from 'react-native';
 import EspacioJ from './EspacioJ';
+import { firebaseConfig } from '../../components/firebase';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import { crear } from './tableros';
 import { useNavigation } from '@react-navigation/native';
+import { collection, addDoc, doc, onSnapshot, orderBy, query, QuerySnapshot, limit, OrderByDirection } from "firebase/firestore";
 
+export function Puntuacion({
+  id,
+  cadena,
+  min,
+  sec,
+  user,
+  cadena2
+}) {
+  if (cadena === cadena2) {
+    return <Text style={{ alignContent: 'center', margin: 15, fontFamily: "prueba2", fontSize: 18, backgroundColor: "#FAFAFA", textAlign: 'center', textAlignVertical: 'center', paddingTop: "1%", borderRadius: 3 }}>Puntaje.....................................{min < 10 ? `0${min}` : min}:{sec < 10 ? `0${sec}` : sec}</Text>
+  }
+  return <Text style={{ margin: 15, fontFamily: "prueba2", fontSize: 18, textAlign: 'center' }}>Puntaje.....................................{min < 10 ? `0${min}` : min}:{sec < 10 ? `0${sec}` : sec}</Text>
+}
 
 var tableros
 tableros = crear()
@@ -43,7 +60,8 @@ for (var i = 0; i < sudoku.length; i++) {
   }
 }
 
-for (var i = 0; i < 41; i++) {
+
+for (var i = 0; i < 50; i++) {
   var uno = Math.floor(Math.random() * 9);
   var dos = Math.floor(Math.random() * 3);
   var tres = Math.floor(Math.random() * 3);
@@ -62,16 +80,26 @@ for (var i = 0; i < 41; i++) {
 
 export default function Juego1(props) {
 
+  const firebase = initializeApp(firebaseConfig);
+  database = getFirestore();
 
   const { route } = props;
   const { usuario } = route.params;
-  //console.log(usuario);
+  const [termino3, setTermino3] = useState(-1);
+  // console.log(usuario);
+  const [resultado, setBuenas] = useState({
+    min: 0,
+    sec: 0,
+    user: usuario,
+    cadena: ''
+  });
   const [valor, SetValor] = useState();
   const [ayuda, setAyuda] = useState(1);
   const [zindex1, setZindex] = useState(1);
   const [terminar, setTerminar] = useState("Jugando..");
   const [acabar, setAcabar] = useState(false);
 
+  //console.log(resultado);
 
   const [termino2, setTermino2] = useState(0);
   const [index, setIndex] = useState(-1);
@@ -79,26 +107,68 @@ export default function Juego1(props) {
 
   const [mins, setMinutes] = useState(0);
   const [secs, setSeconds] = useState(0);
+
+  const [minsF, setMinutesF] = useState(0);
+  const [secsF, setSecondsF] = useState(0);
+
+  const [puntajes, setPuntajes] = useState([]);
+
+  useEffect(() => {
+    const collectionRef = collection(database, usuario + '-Juego2');
+    const q = query(collectionRef, orderBy("min"))
+
+    const unsuscribe = onSnapshot(q, querySnapshot => {
+      setPuntajes(
+        querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          cadena: doc.data().cadena,
+          min: doc.data().min,
+          sec: doc.data().sec,
+          user: doc.data().user
+
+        })
+        )
+      )
+    })
+    return unsuscribe;
+  }, [])
+  //  console.log(acabar);
+
   useEffect(() => {
     let sampleInterval = setInterval(() => {
-      if (secs <59 ) {
+      if (secs < 59) {
         setSeconds(secs + 1);
       }
       if (secs === 59) {
-          setMinutes(mins  + 1);
-          setSeconds(0);
+        setMinutes(mins + 1);
+        setSeconds(0);
       }
-      if (acabar){
+      if (acabar) {
         clearInterval(sampleInterval);
-       // console.log("acabando");
-       
+        // console.log("acabando");
+
       }
-    }, 1000);
+    }, 900);
     return () => {
       clearInterval(sampleInterval);
     };
   });
- // console.log(acabar);
+
+  const generateRandomString =
+    () => {
+      const characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result1 = ' ';
+      const charactersLength = characters.length;
+      for (let i = 0; i < 10; i++) {
+        result1 +=
+          characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      console.log(result1);
+
+      return result1;
+    }
+  // console.log(acabar);
 
 
   LogBox.ignoreLogs(["expo-app-loading is deprecated"]);
@@ -115,6 +185,7 @@ export default function Juego1(props) {
     SetValor(nuevo)
   }
 
+  //console.log(resultado);
   const cerrar = () => {
     setAyuda(0);
     setZindex(-1);
@@ -147,26 +218,51 @@ export default function Juego1(props) {
       }
     }
 
-    if (iguales) {
+
+    if (iguales && !acabar) {
+      setMinutesF(mins);
+      setSecondsF(secs);
       setTermino2(1);
       setIndex(2);
-      console.log("Termino");
-      setTerminar("Termino");
       setAcabar(true);
+      subir();
+
     }
   }
+  const mPuntaje = () => {
+    setTermino3(3);
+  }
+
+  const estadisticasCerrar = () => {
+    setTermino3(0);
+  }
+
+  const subir = async () => {
+    resultado.min = mins;
+    resultado.sec = secs;
+    cadenaB = generateRandomString();
+    resultado.cadena = cadenaB;
+    console.log(resultado);
+    await addDoc(collection(database, usuario + '-Juego2',), resultado);
+  }
+
+
 
 
 
   return (
     <SafeAreaView style={[GlobalStyles.androidSafeArea, { alignItems: 'center', alignContent: 'center' }]}>
 
-      <View style={[styles.final, { opacity: termino2, zIndex: index }]}>
+
+
+
+      <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
+        <View style={[styles.final, { opacity: termino2, zIndex: index }]}>
           <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
-            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 30 }}> ¡Felicidades! terminaste en  </Text>
-            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 50 }}>  {mins} : {secs} {terminar}</Text>
-            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 30 }}> tiempo  </Text>
-            <TouchableOpacity  style={{ width: "75%" }} >
+            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 25 }}> ¡Felicidades! terminaste en  </Text>
+            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 50 }}>{minsF < 10 ? `0${minsF}` : minsF}:{secsF < 10 ? `0${secsF}` : secsF}</Text>
+            <Text style={{ fontFamily: "prueba2", marginTop: "20%", fontSize: 30 }}>  </Text>
+            <TouchableOpacity onPress={() => mPuntaje()} s style={{ width: "75%" }} >
               <Text style={{ paddingTop: 10, marginTop: "80%", fontFamily: "prueba2", marginTop: "15%", borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Ver mis estadisticas</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => salir()} style={{ width: "75%" }} >
@@ -174,9 +270,6 @@ export default function Juego1(props) {
             </TouchableOpacity>
           </LinearGradient>
         </View>
-       
-
-      <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
         <View style={GlobalStyles.logo}>
           <Image style={GlobalStyles.logo2}
             source={require("../../images/logo2.png")} />
@@ -184,13 +277,13 @@ export default function Juego1(props) {
         <Text style={{ marginTop: 30, fontSize: 40, fontFamily: "prueba2" }}> Sudoku </Text>
 
         <Text> {" "}
-        {mins < 10 ? `0${mins}` : mins}:{secs < 10 ? `0${secs}` : secs}</Text>
+          {mins < 10 ? `0${mins}` : mins}:{secs < 10 ? `0${secs}` : secs}</Text>
         <EspacioJ styles={styles.juego} valor={valor} ver={ver} bloqueados={bloqueados} sudoku={sudoku}></EspacioJ>
 
         <View style={[styles.apoyo, { opacity: ayuda, zIndex: zindex1 }]}>
           <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
             <Text style={{ fontFamily: "prueba2", marginTop: "3%" }}> ¿Como se juega?</Text>
-            <Text style={{ fontFamily: "prueba2", width: "75%", marginTop: "15%", textAlign:'justify' }}>Sudoku es un juego de lógica donde tienes una cuadrícula de 9x9 celdas dividida en bloques de 3x3. Debes rellenar la cuadrícula con los números del 1 al 9, asegurándote de que no se repitan los números en ninguna fila, columna o bloque de 3x3. Comienzas con algunas celdas ya completadas y debes llenar el resto aplicando la lógica para evitar repeticiones.</Text>
+            <Text style={{ fontFamily: "prueba2", width: "75%", marginTop: "15%", textAlign: 'justify' }}>Sudoku es un juego de lógica donde tienes una cuadrícula de 9x9 celdas dividida en bloques de 3x3. Debes rellenar la cuadrícula con los números del 1 al 9, asegurándote de que no se repitan los números en ninguna fila, columna o bloque de 3x3. Comienzas con algunas celdas ya completadas y debes llenar el resto aplicando la lógica para evitar repeticiones.</Text>
             <TouchableOpacity onPress={() => cerrar()} style={{ width: "75%" }}>
               <Text style={{ paddingTop: 10, marginTop: "80%", fontFamily: "prueba2", marginTop: "3%", borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Cerrar</Text>
             </TouchableOpacity>
@@ -239,6 +332,22 @@ export default function Juego1(props) {
             <Text style={styles.letraB}>X</Text>
           </TouchableOpacity>
         </View>
+        <View style={[styles.final, { opacity: termino3, zIndex: termino3, height: "80%" }]}>
+          <LinearGradient colors={['#00FFEB', '#285EE8']} style={GlobalStyles.screen}>
+            <Text style={{ marginTop: "5%", marginBottom: "6%", fontSize: 30, fontFamily: "prueba2" }} > Mejores Puntuaciones</Text>
+            <View style={{ height:"60%", width: "100%" }}>
+              <ScrollView style={{ marginLeft: "5.5%", width: "90%" }}>
+                {puntajes.map(puntaje => <Puntuacion key={puntaje.id} {...puntaje} cadena2={resultado.cadena} />)}
+              </ScrollView>
+            </View>
+            <TouchableOpacity onPress={() => estadisticasCerrar()} style={{ width: "75%", marginTop: "5%" }}>
+              <Text style={{ paddingTop: "3%", fontFamily: "prueba2", borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Cerrar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => salir()} style={{ marginTop: "7%", width: "75%" }}>
+              <Text style={{ paddingTop: "3%", marginTop: 0, fontFamily: "prueba2", marginTop: 0, borderWidth: 2, fontSize: 20, textAlign: 'center' }}> Ver mas juegos</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
 
 
       </LinearGradient>
@@ -263,7 +372,7 @@ const styles = StyleSheet.create({
     height: "80%",
     textAlign: 'center',
     backgroundColor: "#FAFAFA",
-    marginTop: "30%",
+    marginTop: "25%",
     borderWidth: 2,
   },
   apoyo: {
@@ -273,7 +382,6 @@ const styles = StyleSheet.create({
     marginTop: "25%",
     width: "85%",
     height: "75%",
-    backgroundColor: "#FAFAFA",
   },
   botones: {
     marginLeft: "2%",
